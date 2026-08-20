@@ -12,6 +12,12 @@ React + Spring Boot application for the Associate Software Engineer assignment.
 - Server-side OAuth token storage in the Spring HTTP session; the browser never receives the Salesforce access token.
 - Ready for GitHub + Render deployment.
 
+## Live deployment
+
+- Frontend (Vercel): https://salesforce-crud-theta.vercel.app
+- Backend (Render): https://cloudvandana-salesforce-backend-vcor.onrender.com
+- Salesforce OAuth callback: https://cloudvandana-salesforce-backend-vcor.onrender.com/api/auth/callback
+
 The assignment specifically requires CRUD against those five Salesforce standard objects, OAuth 2.0 through an External Client App, 20-record pagination, deployment and a Git repository. See the supplied assignment for the original requirements. 
 
 ## Architecture
@@ -37,8 +43,8 @@ In Salesforce:
    `http://localhost:8080/api/auth/callback`
 7. Add API access and refresh/offline access scopes. In the current Salesforce UI the exact scope labels can vary; choose the scopes that grant API access and refresh/offline access.
 8. For a server-side Web Server OAuth flow, keep the client secret protected and copy the Consumer Key and Consumer Secret.
-9. For the deployed app, add the deployed backend callback URL as an additional callback URL, for example:
-   `https://YOUR-BACKEND.onrender.com/api/auth/callback`
+9. For the deployed app, add this callback URL as an additional callback URL:
+   `https://cloudvandana-salesforce-backend-vcor.onrender.com/api/auth/callback`
 
 Salesforce's current documentation recommends External Client Apps for new integrations. The OAuth callback URL must match the URL used by the application.
 
@@ -165,10 +171,10 @@ Create a **Web Service** from the GitHub repository.
 SF_CLIENT_ID=...
 SF_CLIENT_SECRET=...
 SF_LOGIN_URL=https://login.salesforce.com
-SF_REDIRECT_URI=https://YOUR-BACKEND.onrender.com/api/auth/callback
+SF_REDIRECT_URI=https://cloudvandana-salesforce-backend-vcor.onrender.com/api/auth/callback
 SF_API_VERSION=66.0
 SF_SCOPES=api refresh_token offline_access
-FRONTEND_URL=https://YOUR-FRONTEND.onrender.com
+FRONTEND_URL=https://salesforce-crud-theta.vercel.app
 COOKIE_SECURE=true
 ```
 
@@ -176,16 +182,16 @@ COOKIE_SECURE=true
 
 Create a **Static Site** from the same repository.
 
-- Root Directory: `frontend`
+- Root Directory: `frontend` (the live frontend is deployed on Vercel)
 - Build Command: `npm install && npm run build`
 - Publish Directory: `dist`
 - Environment variable:
 
 ```text
-VITE_API_BASE_URL=https://YOUR-BACKEND.onrender.com/api
+VITE_API_BASE_URL=https://cloudvandana-salesforce-backend-vcor.onrender.com/api
 ```
 
-After the frontend URL is known, update the backend `FRONTEND_URL`. Then update the Salesforce External Client App callback URL to exactly match the backend callback URL.
+The Vercel deployment uses the committed `frontend/.env.production` value. Confirm that the Vercel project root is `frontend`, then update the Salesforce External Client App callback URL to exactly match the backend callback URL above.
 
 Render provides free Static Sites and free Web Services for testing, with free web services spinning down after inactivity. This is suitable for an assignment/demo but not production.
 
@@ -207,7 +213,8 @@ Render provides free Static Sites and free Web Services for testing, with free w
 - [ ] Update works
 - [ ] Delete works
 - [ ] GitHub repository is public/shared as requested
-- [ ] Deployed URL works
+- [x] Frontend deployed at https://salesforce-crud-theta.vercel.app
+- [x] Backend deployed at https://cloudvandana-salesforce-backend-vcor.onrender.com
 - [ ] Updated resume is ready for submission
 
 ## Important security note

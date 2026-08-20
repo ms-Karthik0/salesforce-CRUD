@@ -18,7 +18,7 @@ services:
       - key: SF_SCOPES
         value: "api refresh_token offline_access"
       - key: FRONTEND_URL
-        sync: false
+        value: https://salesforce-crud-theta.vercel.app
       - key: COOKIE_SECURE
         value: "true"
       - key: COOKIE_SAME_SITE
@@ -30,4 +30,4 @@ services:
     staticPublishPath: frontend/dist
     envVars:
       - key: VITE_API_BASE_URL
-        sync: false
+        value: https://cloudvandana-salesforce-backend-vcor.onrender.com/api
