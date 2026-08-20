@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: cloudvandana-salesforce-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SF_CLIENT_ID
+        sync: false
+      - key: SF_CLIENT_SECRET
+        sync: false
+      - key: SF_LOGIN_URL
+        value: https://login.salesforce.com
+      - key: SF_REDIRECT_URI
+        sync: false
+      - key: SF_API_VERSION
+        value: "66.0"
+      - key: SF_SCOPES
+        value: "api refresh_token offline_access"
+      - key: FRONTEND_URL
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+  - type: static
+    name: cloudvandana-salesforce-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false

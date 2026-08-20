@@ -1,0 +1,28 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: salesforce-crud-backend
+  session:
+    timeout: 30m
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: ${COOKIE_SECURE:false}
+        same-site: lax
+
+salesforce:
+  login-url: ${SF_LOGIN_URL:https://login.salesforce.com}
+  client-id: ${SF_CLIENT_ID:}
+  client-secret: ${SF_CLIENT_SECRET:}
+  redirect-uri: ${SF_REDIRECT_URI:http://localhost:8080/api/auth/callback}
+  api-version: ${SF_API_VERSION:66.0}
+  scopes: ${SF_SCOPES:api refresh_token offline_access}
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  allowed-origin: ${FRONTEND_URL:http://localhost:5173}
